@@ -4,14 +4,14 @@ class CuentaBancaria
     attr_reader :banco, :numero_de_cuenta
 
     def initialize(banco, numero_de_cuenta, saldo = 0.0)
+        raise ArgumentError, "Numero de cuenta solo debe contener numeros" if (numero_de_cuenta.to_i != Numeric)
         @banco = banco
-        #aplicar que el numero de cuenta sea valido
         @numero_de_cuenta = numero_de_cuenta
         @saldo = saldo
     end
 
-    #añadir condicion sobre saldos negativos
     def transferir(monto, cuenta)
+        raise "\nATENCION\n Su saldo en la cuenta #{@numero_de_cuenta} es insuficiente \npara realizar esta transaccion" if (monto > @saldo)
         @saldo -= monto
         cuenta.saldo += monto
         monto
